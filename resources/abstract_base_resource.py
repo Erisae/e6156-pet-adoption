@@ -1,7 +1,5 @@
-from abc import ABC
 
-
-class BaseResource(ABC):
+class BaseResource():
 
     def __init__(self):
         pass

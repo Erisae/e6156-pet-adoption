@@ -1,7 +1,5 @@
-from abc import ABC
 
-
-class BaseDataService(ABC):
+class BaseDataService():
 
     def __init__(self):
         pass

@@ -1,13 +1,14 @@
 from resources.abstract_base_data_service import BaseDataService
 import json
 
-class AdoptionDataService(BaseDataService):
+class AdoptionsDataService(BaseDataService):
+
 
     def __init__(self, config: dict):
         super().__init__()
 
         # Assuming you have a specific directory and file for adoptions
-        self.data_dir = config['data_directory']
+        self.data_dir = config["data_directory"]
         self.data_file = config["adoption_data_file"]
         self.adoptions = []
 
@@ -52,7 +53,7 @@ class AdoptionDataService(BaseDataService):
 
         return new_adoption
 
-    def update_adoption(self, adoptionId: str, data: dict) -> dict:
+    def update_adoption_status(self, adoptionId: str, data: dict) -> dict:
         """
         Update an existing adoption based on the provided adoptionId and data.
         :param adoptionId: The ID of the adoption to update.
@@ -83,4 +84,15 @@ class AdoptionDataService(BaseDataService):
                 del self.adoptions[index]
                 self._save()
                 return True
-        return False # Returns False if no matching adoptionId was found
+        return False
+
+    def get_adoption_by_id(self, adoptionId: str) -> dict:
+        """
+        Retrieve a specific adoption based on the provided adoptionId.
+        :param adoptionId: The ID of the adoption to retrieve.
+        :return: The adoption record if found, None otherwise.
+        """
+        for adoption in self.adoptions:
+            if adoption["adoptionId"] == adoptionId:
+                return adoption
+        return None  # Returns None if no matching adoptionId was found

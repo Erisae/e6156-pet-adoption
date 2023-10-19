@@ -1,17 +1,18 @@
 from __future__ import annotations
 from pydantic import BaseModel
 from typing import List
+from typing import Optional
 
 from resources.rest_models import Link
 
 
 class AdoptionModel(BaseModel):
-    adoptionId: str
+    adoptionId: Optional[str]
     petId: str
     adopterId: str
-    status: str
-    createdAt: str
-    updatedAt: str
+    status: Optional[str] = "pending"
+    createdAt: Optional[str]
+    updatedAt: Optional[str]
 
     model_config = {
         "json_schema_extra": {
