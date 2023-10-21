@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 import uvicorn
@@ -9,6 +10,13 @@ from resources.adoptions.adoptions_data_service import AdoptionsDataService
 from resources.adoptions.adoption_models import AdoptionModel, AdoptionRspModel
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
