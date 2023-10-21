@@ -3,8 +3,8 @@ pet adoption microservice
 
 ### Dockerization
 ```shell
-# build
-docker build -t yuhanxia99/pet-adoption .
+# build important: ec2 is amd64 while apple silicon is arm64
+docker build --no-cache --platform linux/amd64 -t yuhanxia99/pet-adoption .  
 # launch container using image
 docker run -p 8011:8011 yuhanxia99/pet-adoption
 # push
@@ -32,4 +32,33 @@ kubectl apply -f eks-pet-adoption-service.yaml
 kubectl get all -n eks-pet-adoption
 # view details of deployed service
 kubectl -n eks-pet-adoption describe service eks-pet-adoption-linux-service
+# view details of a pod
+kubectl -n eks-pet-adoption describe pod eks-pet-adoption-linux-deployment-cb875c4c9-8dx5x
+# get nodes
+kubectl get nodes
+# show container log
+kubectl logs eks-pet-adoption-linux-deployment-cb875c4c9-8dx5x -n eks-pet-adoption -c pet-adoption
+# delete pod
+kubectl delete pods -l app=eks-pet-adoption-linux-app -n eks-pet-adoption
+# delete service
+kubectl delete service -l app=eks-pet-adoption-linux-app -n eks-pet-adoption
+# delete deployment
+kubectl delete deployments --all -n eks-pet-adoption
+```
+### Pods Name
+```shell
+pod/eks-pet-adoption-linux-deployment-cb875c4c9-8dx5x
+pod/eks-pet-adoption-linux-deployment-cb875c4c9-lb5ht
+pod/eks-pet-adoption-linux-deployment-cb875c4c9-z22jl
+```
+### Run
+```shell
+# run a shell on the pod
+kubectl exec -it eks-pet-adoption-linux-deployment-cb875c4c9-8dx5x -n eks-pet-adoption -- /bin/bash
+# view output from server
+curl -v eks-pet-adoption-linux-service
+# view the DNS server for the Pod
+cat /etc/resolv.conf
+# exit
+exit
 ```

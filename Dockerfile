@@ -1,4 +1,4 @@
-#It instructs Docker Engine to use official python:3.10 as the base image
+#It instructs Docker Engine to use official python:3.9 as the base image
 FROM python:3.9
 
 #It creates a working directory(app) for the Docker image and container

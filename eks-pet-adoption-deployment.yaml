@@ -24,13 +24,12 @@ spec:
                 operator: In
                 values:
                 - amd64
-                - arm64
       containers:
       - name: pet-adoption
         image: yuhanxia99/pet-adoption
         ports:
         - name: http
           containerPort: 8011
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
       nodeSelector:
         kubernetes.io/os: linux
