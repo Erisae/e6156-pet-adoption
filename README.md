@@ -21,7 +21,6 @@ kubectl get pods -A -o wide
 ```
 ### Deploy on EKS
 ```shell
-# 
 # create and delete namespace
 kubectl delete namespace eks-pet-adoption
 kubectl create namespace eks-pet-adoption
@@ -45,12 +44,6 @@ kubectl delete service -l app=eks-pet-adoption-linux-app -n eks-pet-adoption
 # delete deployment
 kubectl delete deployments --all -n eks-pet-adoption
 ```
-### Pods Name
-```shell
-pod/eks-pet-adoption-linux-deployment-cb875c4c9-8dx5x
-pod/eks-pet-adoption-linux-deployment-cb875c4c9-lb5ht
-pod/eks-pet-adoption-linux-deployment-cb875c4c9-z22jl
-```
 ### Run
 ```shell
 # run a shell on the pod
@@ -68,14 +61,16 @@ exit
 # DNS name
 kubectl -n eks-pet-adoption get service eks-pet-adoption-linux-service -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}'
 # public
-http://a1407650dffbf4794812808903d875eb-330834123.us-east-2.elb.amazonaws.com:8011
+http://a0732709d25f74bb59285846f2d9d406-1427569571.us-east-2.elb.amazonaws.com:8011
 ```
 
-### Stop and update
+### Stop
 ```shell
 eksctl get cluster
 eksctl get nodegroup --cluster pet-adoption
 eksctl scale nodegroup --cluster pet-adoption --name ng-749b31ef --nodes 0 --nodes-max 1 --nodes-min 0
+# see the status of scaling
+eksctl get nodegroup --cluster pet-adoption --region us-east-2 --name ng-749b31ef
 ```
 ![img.png](img.png)
 
