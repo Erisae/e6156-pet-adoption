@@ -62,3 +62,11 @@ cat /etc/resolv.conf
 # exit
 exit
 ```
+
+### DNS
+```shell
+# DNS name
+kubectl -n eks-pet-adoption get service eks-pet-adoption-linux-service -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+# public
+http://a1407650dffbf4794812808903d875eb-330834123.us-east-2.elb.amazonaws.com:8011
+```
