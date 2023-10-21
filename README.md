@@ -71,10 +71,19 @@ kubectl -n eks-pet-adoption get service eks-pet-adoption-linux-service -o=jsonpa
 http://a1407650dffbf4794812808903d875eb-330834123.us-east-2.elb.amazonaws.com:8011
 ```
 
-### Stop
+### Stop and update
 ```shell
 eksctl get cluster
 eksctl get nodegroup --cluster pet-adoption
 eksctl scale nodegroup --cluster pet-adoption --name ng-749b31ef --nodes 0 --nodes-max 1 --nodes-min 0
 ```
 ![img.png](img.png)
+
+### Update image
+```shell
+# update image
+kubectl get deployments -n eks-pet-adoption
+# when not found, do not forget namespace
+kubectl set image deployment/eks-pet-adoption-linux-deployment  pet-adoption=yuhanxia99/pet-adoption -n eks-pet-adoption
+# wont change DNS and EC2 instance
+```
